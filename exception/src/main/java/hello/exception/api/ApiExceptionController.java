@@ -1,13 +1,14 @@
 package hello.exception.api;
 
+import hello.exception.exception.BadRequestException;
 import hello.exception.exception.UserException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 
@@ -31,6 +32,29 @@ public class ApiExceptionController {
         return new MemberDto(id, "hello " + id);
     }
 
+    /**
+     * @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "error.bad")
+     * @responseStatus 어노테이션 사용
+     */
+    @GetMapping("/api/response-status-ex1")
+    public String responseStatusEx1(){
+        throw new BadRequestException();
+    }
+
+    /**
+     * 어노테이션은 외부 라이브러리 등에서 사용 불가
+     * 대신 ResponseStatusException 사용
+     */
+    @GetMapping("/api/response-status-ex2")
+    public String responseStatusEx2(){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,"error.bad",new IllegalArgumentException());
+    }
+
+    @ResponseBody
+    @GetMapping("/api/default-handler-ex")
+    public String defaultException(@RequestParam Integer data){
+        return "ok";
+    }
 
     @Data
     @AllArgsConstructor

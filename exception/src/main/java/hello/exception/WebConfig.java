@@ -24,14 +24,14 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LogInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/css/**","*.ico","/error","/error-page/**");//오류 페이지 경로 추가
+                .excludePathPatterns("/css/**","*.ico","/error-page/**");//오류 페이지 경로 추가
     }
 
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver>
                                                         resolvers) {
         resolvers.add(new MyHandlerExceptionResolver());
-        //resolvers.add(new UserHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
     //@Bean
     public FilterRegistrationBean logFilter(){
