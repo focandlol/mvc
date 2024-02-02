@@ -2,6 +2,7 @@ package hello.typeconverter.controller;
 
 import hello.type.IpPort;
 import lombok.Data;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ConverterController {
+
+    //private ConversionService conversionService;
 
     @GetMapping("/converter-view")
     public String converterView(Model model){
